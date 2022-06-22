@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { addEmailState } from '../actions';
 
 class Login extends React.Component {
   state = {
@@ -31,7 +33,9 @@ class Login extends React.Component {
   };
 
   handleClick = () => {
-    const { history } = this.props;
+    const { history, firstDispatch } = this.props;
+    const { email } = this.state;
+    firstDispatch(email);
     history.push('/carteira');
   }
 
@@ -81,9 +85,14 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+  firstDispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  firstDispatch: (email) => dispatch(addEmailState(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
