@@ -25,9 +25,8 @@ class Login extends React.Component {
     });
 
     const min = 5;
-
     const { senha, email } = this.state;
-    if (senha.length >= min && this.isValidEmail(email) === true) {
+    if (this.isValidEmail(email) === true && senha.length >= min) {
       this.setState({ isDisable: false });
     }
   };
