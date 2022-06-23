@@ -37,13 +37,13 @@ input {
   height: 30px;
 }
 
-button {
+.btn-login {
   background-color: #008f7a;
   border-radius: 3%;
   color: white;
   height: 40px;
 }
 
-button:active {
+.btn-login:active {
   font-weight: 800;
 }

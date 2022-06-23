@@ -69,6 +69,7 @@ class Login extends React.Component {
             <br />
             <button
               type="button"
+              className="btn-login"
               onClick={ this.handleClick }
               disabled={ isDisable }
             >

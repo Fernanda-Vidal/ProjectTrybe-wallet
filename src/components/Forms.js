@@ -1,12 +1,13 @@
 import React from 'react';
 import InputSelect from './Select';
+import '../css/wallet.css';
 
 class Forms extends React.Component {
   render() {
     return (
       <div>
         <div>
-          <form>
+          <form className="forms-wallet">
             <label htmlFor="valor">
               Valor:
               <input type="number" />
