@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { addEmailState } from '../actions';
+import '../css/login.css';
 
 class Login extends React.Component {
   state = {
@@ -44,33 +45,27 @@ class Login extends React.Component {
     const { email, senha, isDisable } = this.state;
     return (
       <div>
-        <div>
+        <div className="container">
+          <h1>TrybeWallet</h1>
           <form>
-            <h1>TrybeWallet</h1>
-            <label htmlFor="email">
-              Email:
-              <input
-                type="email"
-                value={ email }
-                name="email"
-                placeholder="e-mail"
-                data-testid="email-input"
-                onChange={ this.handleChange }
-              />
-            </label>
+            <input
+              type="email"
+              value={ email }
+              name="email"
+              placeholder="E-mail"
+              data-testid="email-input"
+              onChange={ this.handleChange }
+            />
             <br />
-            <label htmlFor="senha">
-              Senha:
-              <input
-                type="password"
-                value={ senha }
-                name="senha"
-                placeholder="senha"
-                data-testid="password-input"
-                onChange={ this.handleChange }
-                required
-              />
-            </label>
+            <input
+              type="password"
+              value={ senha }
+              name="senha"
+              placeholder="Senha"
+              data-testid="password-input"
+              onChange={ this.handleChange }
+              required
+            />
             <br />
             <button
               type="button"

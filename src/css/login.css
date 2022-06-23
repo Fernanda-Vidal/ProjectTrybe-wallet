@@ -1,0 +1,49 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 5%;
+    height: 300px;
+    width: 250px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 75%;
+    width: 80%;
+}
+
+h1 {
+    display: flex;
+    flex-direction: column;
+    font-size: 35px;
+    height: 50px;
+    margin: 8px;
+}
+
+input {
+    height: 30px;
+    border-radius: 3%;
+    border: 1px solid black;
+}
+
+button {
+    height: 40px;
+    background-color: #008F7A;
+    color: white;
+    border-radius: 3%;
+}
+
+button:active {
+    font-weight: bold;
+}
