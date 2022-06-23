@@ -12,8 +12,13 @@ class Forms extends React.Component {
               Valor:
               <input data-testid="value-input" type="number" />
             </label>
-            <InputSelect nome="Metodo" label="Metodo de pagamento" />
-            <InputSelect nome="Tag:" label="Moeda" />
+            <InputSelect
+              data-testid="method-input"
+              nome="Metodo"
+              label="Metodo de pagamento"
+            />
+            <InputSelect nome="Moeda" label="Moeda" />
+            <InputSelect data-testid="tag-input" nome="Tag" label="Tag" />
             <label htmlFor="descricao">
               <input data-testid="description-input" type="text" />
             </label>
