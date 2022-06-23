@@ -3,11 +3,11 @@ import React from 'react';
 
 class InputSelect extends React.Component {
   render() {
-    const { nome } = this.props;
+    const { nome, label } = this.props;
     return (
       <div>
-        <label htmlFor={ nome }>
-          { nome }
+        <label htmlFor={ label }>
+          { label }
           <select>
             <options name={ nome }>{ nome }</options>
           </select>
@@ -18,6 +18,7 @@ class InputSelect extends React.Component {
 }
 
 InputSelect.propTypes = {
+  label: PropTypes.string.isRequired,
   nome: PropTypes.string.isRequired,
 };
 

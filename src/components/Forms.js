@@ -10,13 +10,12 @@ class Forms extends React.Component {
           <form className="forms-wallet">
             <label htmlFor="valor">
               Valor:
-              <input type="number" />
+              <input data-testid="value-input" type="number" />
             </label>
-            <InputSelect nome="Método de pagamento:" />
-            <InputSelect nome="Tag:" />
-            <InputSelect />
+            <InputSelect nome="Metodo" label="Metodo de pagamento" />
+            <InputSelect nome="Tag:" label="Moeda" />
             <label htmlFor="descricao">
-              <input type="text" />
+              <input data-testid="description-input" type="text" />
             </label>
             <button type="button">Adicionar despesa</button>
           </form>
