@@ -1,4 +1,4 @@
-import { RECEIVED_COIN, REQUEST_COIN } from '../actions';
+import { RECEIVED_COIN, REQUEST_COIN, SAVE_EXPENSES } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
@@ -19,6 +19,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       currencies: Object.keys(action.coin).filter((coin) => coin !== 'USDT'),
+    };
+  case SAVE_EXPENSES:
+    return {
+      ...state,
+      expenses: action.value,
     };
   default:
     return state;
