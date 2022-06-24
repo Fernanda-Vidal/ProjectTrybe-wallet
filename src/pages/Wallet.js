@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { thunkCoin } from '../actions';
 import Forms from '../components/Forms';
 import Header from '../components/Header';
+import Table from '../components/Table';
 import '../css/wallet.css';
 
 class Wallet extends React.Component {
@@ -17,6 +18,7 @@ class Wallet extends React.Component {
       <div className="container-wallet">
         <Header />
         <Forms />
+        <Table />
       </div>
     );
   }
