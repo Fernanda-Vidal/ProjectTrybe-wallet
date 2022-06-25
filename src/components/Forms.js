@@ -2,18 +2,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { addExpenses } from '../actions';
+import { thunkExpenses } from '../actions';
 import '../css/wallet.css';
 
 class Forms extends React.Component {
   state = {
-    inputValor: 0,
-    inputMoeda: '',
-    inputMetodo: '',
-    inputTag: '',
-    inputDescricao: '',
+    id: 0,
+    value: 0,
+    currency: '',
+    method: '',
+    tag: '',
+    description: '',
+    exchangeRates: '',
   }
 
+  // { id,     exchangeRates }
   generateSelect = (array) => (
     array.map((item, i) => (
       <option name={ item } key={ `${item}-${i}` }>{ item }</option>
@@ -29,10 +32,20 @@ class Forms extends React.Component {
     });
   }
 
+  handleClick = () => {
+    const { walletDispatch } = this.props;
+    const saveState = { ...this.state };
+    walletDispatch(saveState);
+
+    this.setState((previous) => ({
+      id: previous.id + 1,
+    }));
+  }
+
   render() {
-    const { inputValor, inputMoeda, inputMetodo, inputTag, inputDescricao } = this.state;
+    const { value, currency, method, tag, description } = this.state;
     const paymentMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const { walletState, walletDispatch } = this.props;
+    const { walletState } = this.props;
     const arrayTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <div>
@@ -43,8 +56,8 @@ class Forms extends React.Component {
               <input
                 type="number"
                 data-testid="value-input"
-                name="inputValor"
-                value={ inputValor }
+                name="value"
+                value={ value }
                 onChange={ this.handleChange }
               />
             </label>
@@ -52,8 +65,8 @@ class Forms extends React.Component {
               Moeda
               <select
                 id="moeda"
-                name="inputMoeda"
-                value={ inputMoeda }
+                name="currency"
+                value={ currency }
                 onChange={ this.handleChange }
               >
                 {this.generateSelect(walletState)}
@@ -63,8 +76,8 @@ class Forms extends React.Component {
               Método de pagamento
               <select
                 data-testid="method-input"
-                name="inputMetodo"
-                value={ inputMetodo }
+                name="method"
+                value={ method }
                 onChange={ this.handleChange }
               >
                 {this.generateSelect(paymentMethod)}
@@ -74,8 +87,8 @@ class Forms extends React.Component {
               Tag
               <select
                 data-testid="tag-input"
-                name="inputTag"
-                value={ inputTag }
+                name="tag"
+                value={ tag }
                 onChange={ this.handleChange }
               >
                 {this.generateSelect(arrayTag)}
@@ -86,14 +99,14 @@ class Forms extends React.Component {
               <input
                 type="text"
                 data-testid="description-input"
-                name="inputDescricao"
-                value={ inputDescricao }
+                name="description"
+                value={ description }
                 onChange={ this.handleChange }
               />
             </label>
             <button
               type="button"
-              onClick={ walletDispatch(this.state) }
+              onClick={ this.handleClick }
             >
               Adicionar despesa
             </button>
@@ -114,7 +127,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  walletDispatch: (state) => dispatch(addExpenses(state)),
+  walletDispatch: (state) => dispatch(thunkExpenses(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);
