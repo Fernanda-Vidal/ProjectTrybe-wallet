@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { removeExpense } from '../actions';
 
 class Table extends React.Component {
+  handleClick = (id) => {
+    const { walletDispatch } = this.props;
+    walletDispatch(id);
+  }
+
   render() {
     const { walletState } = this.props;
     return (
@@ -18,8 +24,8 @@ class Table extends React.Component {
           <th>Editar/Excluir</th>
         </tr>
         { walletState
-          .map(({ description, tag, method, exchangeRates, currency, value }, i) => (
-            <tr key={ i + 1 }>
+          .map(({ description, tag, method, exchangeRates, currency, value, id }) => (
+            <tr key={ id }>
               <td>{description}</td>
               <td>{tag}</td>
               <td>{method}</td>
@@ -33,6 +39,15 @@ class Table extends React.Component {
                 }
               </td>
               <td>Real</td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => this.handleClick(id) }
+                >
+                  Excluir
+                </button>
+              </td>
             </tr>
           )) }
       </table>
@@ -41,6 +56,7 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
+  walletDispatch: PropTypes.func.isRequired,
   walletState: PropTypes.string.isRequired,
 };
 
@@ -48,4 +64,8 @@ const mapStateToProps = (state) => ({
   walletState: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  walletDispatch: (id) => dispatch(removeExpense(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

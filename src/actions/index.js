@@ -3,6 +3,7 @@ export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const REQUEST_COIN = 'REQUEST_COIN';
 export const RECEIVED_COIN = 'RECEIVED_COIN';
 export const SAVE_EXPENSES = 'ADD_EXPENSES';
+export const REMOVE = 'REMOVE';
 
 export const addEmailState = (email) => ({ type: SAVE_EMAIL, email });
 
@@ -28,3 +29,5 @@ export const thunkExpenses = (state) => {
     .then((response) => response.json())
     .then((coin) => dispatch(addExpenses({ ...state, exchangeRates: coin })));
 };
+
+export const removeExpense = (id) => ({ type: REMOVE, id });
