@@ -4,18 +4,16 @@ import { connect } from 'react-redux';
 import '../css/wallet.css';
 
 class Header extends React.Component {
-  state = {
-    expense: 0,
-  }
-
-  componentDidUpdate() {
-    const { walletState } = this.props;
-    console.log(walletState[0].value);
-  }
-
   render() {
-    const { expense } = this.state;
-    const { userState } = this.props;
+    const { userState, walletState } = this.props;
+    console.log(walletState);
+    const expense = walletState.reduce((acc, curr) => {
+      const { currency, exchangeRates, value } = curr;
+      const { ask } = exchangeRates[currency];
+      acc += (Number(value) * ask);
+      return acc;
+    }, 0).toFixed(2);
+
     return (
       <div className="container-header">
         <header>

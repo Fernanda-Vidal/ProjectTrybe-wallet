@@ -12,7 +12,7 @@ const receivedCoin = (coin) => ({ type: RECEIVED_COIN, coin });
 
 export const thunkCoin = () => {
   const url = 'https://economia.awesomeapi.com.br/json/all';
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(requestCoin());
     return fetch(url)
       .then((response) => response.json())

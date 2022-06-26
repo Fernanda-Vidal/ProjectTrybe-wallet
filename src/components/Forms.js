@@ -9,11 +9,10 @@ class Forms extends React.Component {
   state = {
     id: 0,
     value: 0,
-    currency: '',
-    method: '',
-    tag: '',
+    currency: 'USD',
+    method: 'Dinheiro',
+    tag: 'Alimentação',
     description: '',
-    exchangeRates: '',
   }
 
   // { id,     exchangeRates }
@@ -39,6 +38,8 @@ class Forms extends React.Component {
 
     this.setState((previous) => ({
       id: previous.id + 1,
+      value: 0,
+      description: '',
     }));
   }
 
@@ -51,9 +52,10 @@ class Forms extends React.Component {
       <div>
         <div>
           <form className="forms-wallet">
-            <label htmlFor="valor">
+            <label htmlFor="value">
               Valor:
               <input
+                id="value"
                 type="number"
                 data-testid="value-input"
                 name="value"
@@ -61,10 +63,10 @@ class Forms extends React.Component {
                 onChange={ this.handleChange }
               />
             </label>
-            <label htmlFor="moeda">
+            <label htmlFor="currency">
               Moeda
               <select
-                id="moeda"
+                id="currency"
                 name="currency"
                 value={ currency }
                 onChange={ this.handleChange }
@@ -72,9 +74,10 @@ class Forms extends React.Component {
                 {this.generateSelect(walletState)}
               </select>
             </label>
-            <label htmlFor="metodo">
+            <label htmlFor="method">
               Método de pagamento
               <select
+                id="method"
                 data-testid="method-input"
                 name="method"
                 value={ method }
@@ -86,6 +89,7 @@ class Forms extends React.Component {
             <label htmlFor="tag">
               Tag
               <select
+                id="tag"
                 data-testid="tag-input"
                 name="tag"
                 value={ tag }
@@ -94,9 +98,10 @@ class Forms extends React.Component {
                 {this.generateSelect(arrayTag)}
               </select>
             </label>
-            <label htmlFor="descricao">
+            <label htmlFor="description">
               Descrição
               <input
+                id="description"
                 type="text"
                 data-testid="description-input"
                 name="description"
