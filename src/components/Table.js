@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { removeExpense } from '../actions';
+import { editExpense, removeExpense } from '../actions';
 
 class Table extends React.Component {
   handleClick = (id) => {
@@ -10,7 +10,7 @@ class Table extends React.Component {
   }
 
   render() {
-    const { walletState } = this.props;
+    const { walletState, walletEdit } = this.props;
     return (
       <table>
         <tr>
@@ -48,6 +48,15 @@ class Table extends React.Component {
                   Excluir
                 </button>
               </td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="edit-btn"
+                  onClick={ () => walletEdit(id, exchangeRates) }
+                >
+                  Editar despesa
+                </button>
+              </td>
             </tr>
           )) }
       </table>
@@ -58,6 +67,7 @@ class Table extends React.Component {
 Table.propTypes = {
   walletDispatch: PropTypes.func.isRequired,
   walletState: PropTypes.string.isRequired,
+  walletEdit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -66,6 +76,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   walletDispatch: (id) => dispatch(removeExpense(id)),
+  walletEdit: (id, exchangeRates) => dispatch(editExpense(id, exchangeRates)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

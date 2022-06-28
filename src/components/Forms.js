@@ -18,7 +18,7 @@ class Forms extends React.Component {
   // { id,     exchangeRates }
   generateSelect = (array) => (
     array.map((item, i) => (
-      <option name={ item } key={ `${item}-${i}` }>{ item }</option>
+      <option name={ item } key={ `${item}-${i}` }>{item}</option>
     ))
   );
 
@@ -46,7 +46,7 @@ class Forms extends React.Component {
   render() {
     const { value, currency, method, tag, description } = this.state;
     const paymentMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const { walletState } = this.props;
+    const { walletState, editWallet } = this.props;
     const arrayTag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <div>
@@ -109,11 +109,10 @@ class Forms extends React.Component {
                 onChange={ this.handleChange }
               />
             </label>
-            <button
-              type="button"
-              onClick={ this.handleClick }
-            >
-              Adicionar despesa
+            <button type="button" onClick={ this.handleClick }>
+              {
+                !editWallet ? 'Adicionar despesa' : 'Editar despesa'
+              }
             </button>
           </form>
         </div>
@@ -124,11 +123,14 @@ class Forms extends React.Component {
 
 Forms.propTypes = {
   walletDispatch: PropTypes.func.isRequired,
+  editWallet: PropTypes.bool.isRequired,
+  walletExpense: PropTypes.shape({}).isRequired,
   walletState: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   walletState: state.wallet.currencies,
+  editWallet: state.wallet.editor,
 });
 
 const mapDispatchToProps = (dispatch) => ({
