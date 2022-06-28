@@ -42,19 +42,18 @@ class Table extends React.Component {
               <td>
                 <button
                   type="button"
+                  data-testid="edit-btn"
+                  value="Editar despesa"
+                  onClick={ () => walletEdit(id, exchangeRates) }
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
                   data-testid="delete-btn"
                   onClick={ () => this.handleClick(id) }
                 >
                   Excluir
-                </button>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  data-testid="edit-btn"
-                  onClick={ () => walletEdit(id, exchangeRates) }
-                >
-                  Editar despesa
                 </button>
               </td>
             </tr>

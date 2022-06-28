@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { thunkExpenses } from '../actions';
+import { thunkExpenses, updateExpense } from '../actions';
 import '../css/wallet.css';
 
 class Forms extends React.Component {
@@ -15,7 +15,6 @@ class Forms extends React.Component {
     description: '',
   }
 
-  // { id,     exchangeRates }
   generateSelect = (array) => (
     array.map((item, i) => (
       <option name={ item } key={ `${item}-${i}` }>{item}</option>
@@ -32,15 +31,20 @@ class Forms extends React.Component {
   }
 
   handleClick = () => {
-    const { walletDispatch } = this.props;
+    const { walletDispatch, editWallet, upDate, exchangeRates } = this.props;
     const saveState = { ...this.state };
-    walletDispatch(saveState);
 
-    this.setState((previous) => ({
-      id: previous.id + 1,
-      value: 0,
-      description: '',
-    }));
+    if (!editWallet) {
+      walletDispatch(saveState);
+      this.setState((previous) => ({
+        id: previous.id + 1,
+        value: 0,
+        description: '',
+      }));
+    } else {
+      const { walletId: id } = this.props;
+      upDate({ ...this.state, id, exchangeRates });
+    }
   }
 
   render() {
@@ -122,19 +126,25 @@ class Forms extends React.Component {
 }
 
 Forms.propTypes = {
-  walletDispatch: PropTypes.func.isRequired,
   editWallet: PropTypes.bool.isRequired,
-  walletExpense: PropTypes.shape({}).isRequired,
+  upDate: PropTypes.func.isRequired,
+  walletDispatch: PropTypes.func.isRequired,
+  walletId: PropTypes.number.isRequired,
   walletState: PropTypes.func.isRequired,
+  exchangeRates: PropTypes.objectOf(PropTypes.objectOf).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   walletState: state.wallet.currencies,
   editWallet: state.wallet.editor,
+  walletId: state.wallet.idToEdit,
+  exchangeRates: state.wallet.exchangeRates,
+  // expense: state.wallet.expenses.find(({ id }) => id === state.wallet.idToEdit),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   walletDispatch: (state) => dispatch(thunkExpenses(state)),
+  upDate: (expense) => dispatch(updateExpense(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forms);

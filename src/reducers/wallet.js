@@ -1,5 +1,5 @@
 import {
-  EDIT, RECEIVED_COIN, REMOVE, REQUEST_COIN, SAVE_EXPENSES } from '../actions';
+  EDIT, RECEIVED_COIN, REMOVE, REQUEST_COIN, SAVE_EXPENSES, UPDATE } from '../actions';
 
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
@@ -37,6 +37,17 @@ const wallet = (state = INITIAL_STATE, action) => {
       editor: true,
       idToEdit: action.id,
       exchangeRates: action.exchangeRates,
+    };
+  case UPDATE:
+    return {
+      ...state,
+      editor: false,
+      expenses: state.expenses.map((item) => {
+        if (item.id === action.expense.id) {
+          return action.expense;
+        }
+        return item;
+      }),
     };
   default:
     return state;
